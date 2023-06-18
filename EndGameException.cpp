@@ -1,8 +1,7 @@
 #include "EndGameException.hpp"
 
-EndGameException::EndGameException(std::string error)
-    : m_error{error}
-{}
+EndGameException::EndGameException(std::string error) : m_error(error)
+{}  
 
 const char* EndGameException::what() const noexcept
 {

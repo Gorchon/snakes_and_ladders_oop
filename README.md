@@ -26,6 +26,7 @@ classDiagram
       class InvalidOptionException
       class EndGameException
       
+  
       Game:+getInput()* string
       Game:+start()
       Game:+endGame() bool
@@ -38,7 +39,11 @@ classDiagram
       Dado: -valor
       Dado: op+() int
       InvalidConfigurationException : +what()
+      EndGameException: +EndGameException(string)
+      InvalidConfigurationException:+InvalidConfigurationException()
       InvalidOptionException : +what()
+       InvalidOptionException : +InvalidOptionException(string )
+       InvalidOptionException: 
       EndGameException : +what()
 ```
 Puedes apoyarte con el editor [Mermaid-live](https://mermaid.live/).

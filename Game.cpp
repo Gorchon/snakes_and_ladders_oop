@@ -6,6 +6,10 @@
 #include <string>
 #include <sstream>
 #include "Turno.hpp"
+#include "InvalidConfigurationException.hpp"
+#include "InvalidOptionException.hpp"
+#include "EndGameException.hpp"
+
 
 // Constructor por default --------------------------------
 Game::Game()
@@ -45,12 +49,27 @@ void Game::start()
     int posFinal;
     std::string tipo_casilla;
     bool finalGame{false};
-
+    int contador1= 0;
     outMsg("Press C to continue next turn, or E to end the game");
 
     while (!finalGame && turno <= MAX_TURNOS) {
         key = getInput();
 
+        try {
+            if (key != "C" && key != "E") {
+                throw InvalidOptionException("Invalid option, please C to continue next turn or E to End the game");
+            }
+        }
+        catch (InvalidOptionException& e) {
+            outMsg(e.what());
+            if(contador1 > 2){
+                outMsg("Invalid menu choice exceeded");
+                outMsg("--GAME OVER--");
+                throw EndGameException("Invalid menu choice exceeded");
+                return;
+            }
+            contador1++;
+        }
         if (key == "C") {
 
             std::stringstream ss;
@@ -99,10 +118,10 @@ void Game::start()
 //              std::cout << "Thanks for playing \n";
                 finalGame=true;
             }
-            else {
+/*             else {
                 outMsg("Invalid option, please press C to continue next turn or E to end the game");
 //              std::cout << "Invalid option, please press C to continue next turn or E to end the game\n";
-            }
+            } */
         };
     };
     if (swio) {
